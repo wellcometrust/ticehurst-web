@@ -1,0 +1,45 @@
+
+<div><%= link_to "Patient Index", patients_path %></div>
+
+<h1><%= @patient.name %></h1>
+
+<table>
+
+  <thead>
+    <tr>
+      <th>Date of Admission</th>
+      <th>Date of Discharge</th>
+      <th>Subsequent condition</th>
+      <th>[Archives Ref]</th>
+      <th>[Index file ref]</th>
+    </tr>
+
+  </thead>
+
+  <% @patient.stays.each do |stay| %>
+
+    <tr>
+      <td>
+        <%= stay.transcribed_date_of_admission %>
+      </td>
+
+      <td>
+        <%= stay.transcribed_date_of_discharge %>
+      </td>
+
+      <td>
+        <%= stay.transcribed_subsequent_condition %>
+      </td>
+
+      <td>
+        <%= stay.transcribed_archives_ref %>
+      </td>
+
+      <td>
+        P<%= stay.transcribed_page %> L<%= stay.transcribed_line %>
+      </td>
+
+    </tr>
+
+  <% end %>
+</table>
