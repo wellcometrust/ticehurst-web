@@ -63,6 +63,30 @@
 
     <% end %>
 
+  <% end %>
+
+  <% if stay.case_notes.size > 0 %>
+
+    <h3>Case Notes</h3>
+
+
+    <% stay.case_notes.each do |case_note| %>
+
+      <% record = case_note.record %>
+
+      <% case_note.sequence_start.upto(case_note.sequence_end) do |sequence| %>
+
+        <% image = record.images.find_by(sequence: sequence) %>
+
+        <%= image_tag image_path(image.id, 1024, 1024) %>
+
+      <% end %>
+
+
+    <% end %>
+
+
+
 
   <% end %>
 
