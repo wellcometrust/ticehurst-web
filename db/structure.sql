@@ -120,6 +120,38 @@ ALTER SEQUENCE case_notes_id_seq OWNED BY case_notes.id;
 
 
 --
+-- Name: discharge_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE discharge_notes (
+    id integer NOT NULL,
+    stay_id integer NOT NULL,
+    record_id character varying NOT NULL,
+    sequence_start integer NOT NULL,
+    sequence_end integer NOT NULL
+);
+
+
+--
+-- Name: discharge_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE discharge_notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: discharge_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE discharge_notes_id_seq OWNED BY discharge_notes.id;
+
+
+--
 -- Name: images; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -235,6 +267,13 @@ ALTER TABLE ONLY case_notes ALTER COLUMN id SET DEFAULT nextval('case_notes_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY discharge_notes ALTER COLUMN id SET DEFAULT nextval('discharge_notes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -267,6 +306,14 @@ ALTER TABLE ONLY ar_internal_metadata
 
 ALTER TABLE ONLY case_notes
     ADD CONSTRAINT case_notes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: discharge_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY discharge_notes
+    ADD CONSTRAINT discharge_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -364,6 +411,14 @@ ALTER TABLE ONLY images
 
 
 --
+-- Name: fk_rails_bbef2204d0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY discharge_notes
+    ADD CONSTRAINT fk_rails_bbef2204d0 FOREIGN KEY (record_id) REFERENCES records(id) ON DELETE CASCADE;
+
+
+--
 -- Name: fk_rails_e292f3e919; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -372,11 +427,19 @@ ALTER TABLE ONLY admission_certificates
 
 
 --
+-- Name: fk_rails_f835f186ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY discharge_notes
+    ADD CONSTRAINT fk_rails_f835f186ad FOREIGN KEY (stay_id) REFERENCES stays(id) ON DELETE CASCADE;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812');
 
 
