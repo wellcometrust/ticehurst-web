@@ -43,3 +43,27 @@
 
   <% end %>
 </table>
+
+
+<% @patient.stays.each do |stay| %>
+
+  <h2><%= stay.transcribed_date_of_admission %> - <%= stay.transcribed_date_of_discharge %></h2>
+
+  <% if stay.admission_certificate %>
+
+    <% record = stay.admission_certificate.record %>
+
+    <h3>Admission Certificate</h3>
+
+    <% stay.admission_certificate.sequence_start.upto(stay.admission_certificate.sequence_end) do |sequence| %>
+
+      <% image = record.images.find_by(sequence: sequence) %>
+
+      <%= image_tag image_path(image.id, 1024, 1024) %>
+
+    <% end %>
+
+
+  <% end %>
+
+<% end %>

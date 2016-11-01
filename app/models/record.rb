@@ -12,7 +12,7 @@ class Record < ApplicationRecord
 
     json = JSON.parse(file)
 
-    json['sequences'][0]['canvases'].each do |canvas|
+    json['sequences'][0]['canvases'].each_with_index do |canvas, index|
 
       width = canvas.fetch('width')
       height = canvas.fetch('height')
@@ -23,6 +23,7 @@ class Record < ApplicationRecord
       image = images.find_or_initialize_by(id: image_id)
       image.width = width
       image.height = height
+      image.sequence = index + 1
       image.save!
 
 
