@@ -2,6 +2,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
   def change
     create_table :images, id: false do |t|
       t.primary_key :id, :string
+      t.integer :sequence, null: false
       t.string :record_id, null: false
       t.integer :height, null: false
       t.integer :width, null: false

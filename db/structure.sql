@@ -44,6 +44,38 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: admission_certificates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE admission_certificates (
+    id integer NOT NULL,
+    stay_id integer NOT NULL,
+    record_id character varying NOT NULL,
+    sequence_start integer NOT NULL,
+    sequence_end integer NOT NULL
+);
+
+
+--
+-- Name: admission_certificates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE admission_certificates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_certificates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE admission_certificates_id_seq OWNED BY admission_certificates.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -61,6 +93,7 @@ CREATE TABLE ar_internal_metadata (
 
 CREATE TABLE images (
     id character varying NOT NULL,
+    sequence integer NOT NULL,
     record_id character varying NOT NULL,
     height integer NOT NULL,
     width integer NOT NULL
@@ -156,6 +189,13 @@ ALTER SEQUENCE stays_id_seq OWNED BY stays.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY admission_certificates ALTER COLUMN id SET DEFAULT nextval('admission_certificates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -164,6 +204,14 @@ ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq':
 --
 
 ALTER TABLE ONLY stays ALTER COLUMN id SET DEFAULT nextval('stays_id_seq'::regclass);
+
+
+--
+-- Name: admission_certificates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY admission_certificates
+    ADD CONSTRAINT admission_certificates_pkey PRIMARY KEY (id);
 
 
 --
@@ -229,6 +277,14 @@ CREATE UNIQUE INDEX index_records_on_id ON records USING btree (id);
 
 
 --
+-- Name: fk_rails_4adba77211; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_certificates
+    ADD CONSTRAINT fk_rails_4adba77211 FOREIGN KEY (record_id) REFERENCES records(id) ON DELETE CASCADE;
+
+
+--
 -- Name: fk_rails_a2f79262ff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -245,11 +301,19 @@ ALTER TABLE ONLY images
 
 
 --
+-- Name: fk_rails_e292f3e919; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_certificates
+    ADD CONSTRAINT fk_rails_e292f3e919 FOREIGN KEY (stay_id) REFERENCES stays(id) ON DELETE CASCADE;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718');
 
 
