@@ -48,3 +48,7 @@ button {
 h1 {
   text-align: center;
 }
+
+tr.highlighted {
+  background-color: yellow;
+}

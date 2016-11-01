@@ -7,7 +7,7 @@ class PatientsController < ApplicationController
     @name_search = nil if params[:name].blank?
 
     if !@name_search
-      @patients = Patient.order(:name)
+      @patients = Patient.order('highlighted desc', :name)
     else
       @patients = Patient.where("lower(name) LIKE ?", "%#{@name_search.downcase}%")
     end

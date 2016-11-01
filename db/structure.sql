@@ -62,7 +62,8 @@ CREATE TABLE ar_internal_metadata (
 CREATE TABLE patients (
     id integer NOT NULL,
     name text,
-    stays_count integer DEFAULT 0 NOT NULL
+    stays_count integer DEFAULT 0 NOT NULL,
+    highlighted boolean DEFAULT false NOT NULL
 );
 
 
@@ -190,6 +191,6 @@ ALTER TABLE ONLY stays
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705');
 
 

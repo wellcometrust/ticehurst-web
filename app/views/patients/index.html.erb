@@ -18,7 +18,7 @@
 
   <% @patients.each do |patient| %>
 
-    <tr>
+    <tr <% if patient.highlighted %>class="highlighted" <% end %>>
       <td><%= link_to patient.name, patient %></td>
       <td><%= patient.stays_count %></td>
     </tr>
