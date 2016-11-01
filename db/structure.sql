@@ -88,6 +88,38 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: bill_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bill_notes (
+    id integer NOT NULL,
+    stay_id integer NOT NULL,
+    record_id character varying NOT NULL,
+    sequence_start integer NOT NULL,
+    sequence_end integer NOT NULL
+);
+
+
+--
+-- Name: bill_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bill_notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: bill_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bill_notes_id_seq OWNED BY bill_notes.id;
+
+
+--
 -- Name: case_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -260,6 +292,13 @@ ALTER TABLE ONLY admission_certificates ALTER COLUMN id SET DEFAULT nextval('adm
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY bill_notes ALTER COLUMN id SET DEFAULT nextval('bill_notes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY case_notes ALTER COLUMN id SET DEFAULT nextval('case_notes_id_seq'::regclass);
 
 
@@ -298,6 +337,14 @@ ALTER TABLE ONLY admission_certificates
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: bill_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bill_notes
+    ADD CONSTRAINT bill_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -371,6 +418,22 @@ CREATE UNIQUE INDEX index_records_on_id ON records USING btree (id);
 
 
 --
+-- Name: fk_rails_0bfbb82c43; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bill_notes
+    ADD CONSTRAINT fk_rails_0bfbb82c43 FOREIGN KEY (record_id) REFERENCES records(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_rails_23e1e1b595; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bill_notes
+    ADD CONSTRAINT fk_rails_23e1e1b595 FOREIGN KEY (stay_id) REFERENCES stays(id) ON DELETE CASCADE;
+
+
+--
 -- Name: fk_rails_3abaeda4e7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -440,6 +503,6 @@ ALTER TABLE ONLY discharge_notes
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633');
 
 

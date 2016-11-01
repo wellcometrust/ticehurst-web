@@ -5,5 +5,6 @@ class Stay < ApplicationRecord
   has_one :admission_certificate
   has_many :case_notes
   has_one :discharge_note
+  has_many :bill_notes
 
 end
