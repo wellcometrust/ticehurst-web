@@ -20,6 +20,8 @@ module WellcomeTicehurst
 
     config.logger = Logger.new(STDOUT)
 
+    secrets.secret_key_base = ENV.fetch('SECRET_KEY_BASE')
+
     config.active_record.schema_format = :sql
   end
 end
