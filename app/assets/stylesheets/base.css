@@ -52,3 +52,15 @@ h1 {
 tr.highlighted {
   background-color: yellow;
 }
+
+.toc {
+  padding-left: 0;
+}
+
+.toc ol {
+  padding-left: 1em;
+}
+
+.toc, .toc ol {
+  list-style-type: none;
+}

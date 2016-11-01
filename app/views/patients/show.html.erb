@@ -3,6 +3,35 @@
 
 <h1><%= @patient.name %></h1>
 
+<ol class="toc">
+  <% @patient.stays.each do |stay| %>
+
+    <li>
+      <a href="#stay-<%= stay.id %>"><%= stay.transcribed_date_of_admission %> – <%= stay.transcribed_date_of_discharge %></a>
+
+      <ol>
+        <% if stay.admission_certificate %>
+          <li><a href="#stay-<%= stay.id %>-admission">Admission certificate</a></li>
+        <% end %>
+
+        <% if stay.case_notes.size > 0 %>
+          <li><a href="#stay-<%= stay.id %>-case-notes">Case Notes</a></li>
+        <% end %>
+
+        <% if stay.discharge_note %>
+          <li><a href="#stay-<%= stay.id %>-discharge">Discharge/Death Note</a></li>
+        <% end %>
+
+        <% if stay.bill_notes.size > 0 %>
+          <li><a href="#stay-<%= stay.id %>-bills">Bills</a></li>
+        <% end %>
+      </ol>
+
+    </li>
+
+  <% end %>
+</ol>
+
 <table>
 
   <thead>
@@ -47,13 +76,13 @@
 
 <% @patient.stays.each do |stay| %>
 
-  <h2><%= stay.transcribed_date_of_admission %> - <%= stay.transcribed_date_of_discharge %></h2>
+  <h2 id="stay-<%= stay.id %>"><%= stay.transcribed_date_of_admission %> - <%= stay.transcribed_date_of_discharge %></h2>
 
   <% if stay.admission_certificate %>
 
     <% record = stay.admission_certificate.record %>
 
-    <h3>Admission Certificate</h3>
+    <h3 id="stay-<%= stay.id %>-admission">Admission Certificate</h3>
 
     <% stay.admission_certificate.sequence_start.upto(stay.admission_certificate.sequence_end) do |sequence| %>
 
@@ -67,7 +96,7 @@
 
   <% if stay.case_notes.size > 0 %>
 
-    <h3>Case Notes</h3>
+    <h3 id="stay-<%= stay.id %>-case-notes">Case Notes</h3>
 
 
     <% stay.case_notes.each do |case_note| %>
@@ -90,7 +119,7 @@
 
     <% record = stay.discharge_note.record %>
 
-    <h3>Discharge/Death Note</h3>
+    <h3 id="stay-<%= stay.id %>-discharge">Discharge/Death Note</h3>
 
     <% stay.discharge_note.sequence_start.upto(stay.discharge_note.sequence_end) do |sequence| %>
 
@@ -104,7 +133,7 @@
 
   <% if stay.bill_notes.size > 0 %>
 
-    <h3>Bills</h3>
+    <h3 id="stay-<%= stay.id %>-bills">Bills</h3>
 
 
     <% stay.bill_notes.each do |bill_note| %>
