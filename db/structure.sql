@@ -56,6 +56,18 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: images; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE images (
+    id character varying NOT NULL,
+    record_id character varying NOT NULL,
+    height integer NOT NULL,
+    width integer NOT NULL
+);
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -84,6 +96,15 @@ CREATE SEQUENCE patients_id_seq
 --
 
 ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
+
+
+--
+-- Name: records; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE records (
+    id character varying(10) NOT NULL
+);
 
 
 --
@@ -154,11 +175,27 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT patients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: records_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY records
+    ADD CONSTRAINT records_pkey PRIMARY KEY (id);
 
 
 --
@@ -178,6 +215,20 @@ ALTER TABLE ONLY stays
 
 
 --
+-- Name: index_images_on_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_images_on_id ON images USING btree (id);
+
+
+--
+-- Name: index_records_on_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_records_on_id ON records USING btree (id);
+
+
+--
 -- Name: fk_rails_a2f79262ff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -186,11 +237,19 @@ ALTER TABLE ONLY stays
 
 
 --
+-- Name: fk_rails_a9e806bb92; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT fk_rails_a9e806bb92 FOREIGN KEY (record_id) REFERENCES records(id) ON DELETE CASCADE;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155');
 
 
