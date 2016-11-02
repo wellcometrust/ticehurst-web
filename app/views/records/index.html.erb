@@ -1,0 +1,10 @@
+
+
+<h1>Records</h1>
+
+
+<ul>
+  <% @records.each do |record| %>
+    <li><%= link_to record.id, record_path(record) %></li>
+  <% end %>
+</ul>
