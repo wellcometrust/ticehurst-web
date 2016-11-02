@@ -2,7 +2,7 @@
 <h1>Page index for <%= link_to @record.id, @record %></h1>
 
 
-<% page_types = ['Cover', 'Title', 'Index', 'Content', 'Spine'] %>
+<% page_types = ['Front Cover', 'Front Matter', 'Title', 'Index', 'Content', 'Spine', 'Inside Front Cover', 'Inside Back Cover', 'Back Cover', 'Blank'] %>
 
 <%= form_tag record_pages_path(@record), method: :put %>
 
