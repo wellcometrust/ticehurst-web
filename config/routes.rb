@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :records, only: [:show] do
 
     resource :pages, only: [:show], controller: :records, action: :pages
+    resource :pages, only: [:show, :update], controller: :records, action: :update_pages
 
   end
 

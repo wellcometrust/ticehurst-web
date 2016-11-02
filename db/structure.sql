@@ -192,7 +192,10 @@ CREATE TABLE images (
     sequence integer NOT NULL,
     record_id character varying NOT NULL,
     height integer NOT NULL,
-    width integer NOT NULL
+    width integer NOT NULL,
+    left_page text,
+    right_page text,
+    page_type text
 );
 
 
@@ -505,6 +508,6 @@ ALTER TABLE ONLY discharge_notes
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114'), ('20161102114241');
 
 

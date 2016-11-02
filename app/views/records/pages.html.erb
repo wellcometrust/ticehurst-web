@@ -1,61 +1,66 @@
 
 <h1>Page index for <%= link_to @record.id, @record %></h1>
 
-<table class="pages">
 
-  <thead>
-    <tr>
-      <th rowspan="2" colspan="2">Thumbnail</th>
-      <th colspan="2">Numbers</th>
-      <th rowspan="2">Type</th>
-    </tr>
-    <tr>
-      <th>L</th>
-      <th>R</th>
-    </tr>
-  </thead>
+<% page_types = ['Cover', 'Title', 'Index', 'Content', 'Spine'] %>
 
+<%= form_tag record_pages_path(@record), method: :put %>
 
-  <tbody>
-    <% @images.each do |image| %>
+  <table class="pages">
 
+    <thead>
       <tr>
-        <td>
-          <a href="<%= image_path(image.id, 2024, 2024) %>" target="_blank">
-            <%= image_tag image_path(image.id, 400, 400) %>
-          </a>
-        </td>
-
-        <td>
-          <div><%= image_tag cropped_image_path(image.id, 200, 200, 5,3,10,10) %></div>
-          <div><%= image_tag cropped_image_path(image.id, 200, 200, 90,3,10,10) %></div>
-        </td>
-
-        <td>
-          <input type="text" class="page-number" />
-        </td>
-
-        <td>
-          <input type="text" class="page-number" />
-        </td>
-
-        <td>
-
-          <select>
-            <option></option>
-            <option>Cover</option>
-            <option>Title</option>
-            <option>Index</option>
-            <option>Content</option>
-            <option>Spine</option>
-          </select>
-
-        </td>
-
+        <th rowspan="2" colspan="2">Thumbnail</th>
+        <th colspan="2">Numbers</th>
+        <th rowspan="2">Type</th>
       </tr>
-    <% end %>
-  </tbody>
+      <tr>
+        <th>L</th>
+        <th>R</th>
+      </tr>
+    </thead>
 
-</table>
 
-<button>Save</button>
+    <tbody>
+      <% @images.each do |image| %>
+
+        <tr>
+          <td>
+            <a href="<%= image_path(image.id, 2024, 2024) %>" target="_blank">
+              <%= image_tag image_path(image.id, 400, 400) %>
+            </a>
+          </td>
+
+          <td>
+            <div><%= image_tag cropped_image_path(image.id, 200, 200, 5,3,10,10) %></div>
+            <div><%= image_tag cropped_image_path(image.id, 200, 200, 90,3,10,10) %></div>
+          </td>
+
+          <td>
+            <input type="text" class="page-number" name="page[<%= image.sequence %>][left]" value="<%= image.left_page %>" />
+          </td>
+
+          <td>
+            <input type="text" class="page-number" name="page[<%= image.sequence %>][right]" value="<%= image.right_page %>" />
+          </td>
+
+          <td>
+
+            <select name="page[<%= image.sequence %>][type]">
+
+              <option></option>
+              <% page_types.each do |type| %>
+                <option <%= 'selected' if image.page_type == type %> ><%= type %></option>
+              <% end %>
+            </select>
+
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+  <button>Save</button>
+</form>
