@@ -258,7 +258,9 @@ CREATE TABLE stays (
     transcribed_archives_ref text,
     transcribed_date_of_admission text,
     transcribed_date_of_discharge text,
-    transcribed_subsequent_condition text
+    transcribed_subsequent_condition text,
+    admission date,
+    discharge date
 );
 
 
@@ -503,6 +505,6 @@ ALTER TABLE ONLY discharge_notes
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114');
 
 
