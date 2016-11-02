@@ -6,11 +6,14 @@ class PatientsController < ApplicationController
     @name_search = params[:name]
     @name_search = nil if params[:name].blank?
 
-    if !@name_search
-      @patients = Patient.order('highlighted desc', :name)
-    else
-      @patients = Patient.where("lower(name) LIKE ?", "%#{@name_search.downcase}%")
+    @stays = Stay.joins(:patient)
+      .select('patients.*, stays.*')
+      .order('patients.highlighted desc', 'patients.name', 'stays.admission')
+
+    if @name_search
+      @stays = @stays.where("lower(patients.name) LIKE ?", "%#{@name_search.downcase}%")
     end
+
   end
 
   def show
