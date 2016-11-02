@@ -17,6 +17,7 @@ table {
 td, th {
   border: 1px solid #EEE;
   padding: 4px;
+  vertical-align: top;
 }
 
 img {
@@ -29,8 +30,10 @@ nav {
   text-align: center;
 }
 
-input[type=search] {
+input[type=search],
+input[type=text] {
   font-size: 1em;
+  border: 2px solid #CCC;
 }
 
 button {
@@ -67,4 +70,12 @@ tr.highlighted {
 
 .patients .name {
   min-width: 300px;
+}
+
+input.page-number {
+  width: 1.5em;
+}
+
+table.pages {
+  width: 100%;
 }
