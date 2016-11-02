@@ -6,6 +6,12 @@ class Record < ApplicationRecord
   has_many :images
 
 
+  def volume=(volume_string)
+    puts "Volume: #{volume_string}"
+    write_attribute(:volume, volume_string)
+    write_attribute(:volume_number,volume_string.to_i) if volume_string =~ /\A\d+\z/
+  end
+
   def update_images
 
     file = open("http://wellcomelibrary.org/iiif/#{id}/manifest").read
@@ -30,6 +36,11 @@ class Record < ApplicationRecord
     end
 
 
+  end
+
+  def update_pages_with_type_count!
+    self.pages_with_type = images.where.not(page_type: nil).count
+    save!
   end
 
 end

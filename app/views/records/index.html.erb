@@ -5,6 +5,10 @@
 
 <ul>
   <% @records.each do |record| %>
-    <li><%= link_to record.id, record_path(record) %></li>
+    <li>
+      <%= link_to "Vol #{record.volume} (#{record.id})", record_path(record) %>
+
+      <%= number_to_percentage(record.pages_with_type.to_f * 100 / record.images_count, precision: 1) %> done
+    </li>
   <% end %>
 </ul>

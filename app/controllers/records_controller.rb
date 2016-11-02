@@ -2,7 +2,10 @@ class RecordsController < ApplicationController
 
 
   def index
-    @records = Record.all
+    @records = Record.order(:volume_number)
+      .joins(:images)
+      .group('records.id')
+      .select('records.*, count(images.id) as images_count')
   end
 
   def show
@@ -39,6 +42,8 @@ class RecordsController < ApplicationController
       image.save!
 
     end
+
+    record.update_pages_with_type_count!
 
     redirect_to record_path(record)
   end

@@ -1,4 +1,4 @@
 <h1><%= @record.id %></h1>
 
 
-<p><%= link_to "Transcribe pages", record_pages_path(@record) %></p>
+<p><%= link_to "Transcribe pages", record_pages_path(@record) %>       (<%= number_to_percentage(@record.pages_with_type.to_f * 100 / @record.images.count, precision: 1) %> done)</p>
