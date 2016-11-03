@@ -43,6 +43,10 @@ function keyboardPressedForPageForm(event) {
 
           event.target.value = new_value_to_set;
 
+          // Now fire the 'change' event, which isn't done by default.
+          var evt = new Event('change', {bubbles: true});
+          event.target.dispatchEvent(evt);
+
           var next_input = document.getElementById('page-input-' + (page_number_int + 1));
 
           if (next_input) {
