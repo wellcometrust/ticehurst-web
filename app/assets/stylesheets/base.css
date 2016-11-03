@@ -84,3 +84,7 @@ table.pages {
   font-size: 1.4em;
   line-height: 1.4em;
 }
+
+.table-search {
+  margin-bottom: 1em;
+}

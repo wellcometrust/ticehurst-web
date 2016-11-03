@@ -1,11 +1,14 @@
 
 <h1>Patient Records</h1>
 
-<form>
-  <input type="search" name="name" value="<%= @name_search %>">
-  <button type="submit">Search</button>
-</form>
+<p>We have records of <strong><%= pluralize @patients.size, 'patient' %></strong> admitted to Ticehurst from 1792 to 1917.</p>
 
+<div class="table-search">
+  <form>
+    <input type="search" name="name" value="<%= @name_search %>">
+    <button type="submit">Search</button>
+  </form>
+</div>
 
 <table class="patients">
   <thead>
@@ -17,7 +20,7 @@
   </thead>
 
 
-  <% @stays.group_by(&:patient_id).each do |group| %>
+  <% @patients.each do |group| %>
 
     <% patient = group[1][0] %>
      <tr <% if patient.highlighted %>class="highlighted" <% end %>>
