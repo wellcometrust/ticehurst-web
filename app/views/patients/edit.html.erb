@@ -1,0 +1,14 @@
+
+<h1>Edit <%= link_to @patient.name, @patient %></h1>
+
+<%= form_for @patient do |form| %>
+
+  <div>
+    <div><%= form.label :introduction, "Introduction" %></div>
+    <%= form.text_area :introduction, rows: 10, cols: 50 %>
+  </div>
+
+  <button type="submit">Save</button>
+
+
+<% end %>

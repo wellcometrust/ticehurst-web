@@ -3,6 +3,12 @@
 
 <h1><%= @patient.name %></h1>
 
+<% if @patient.introduction %>
+  <div class="introduction">
+    <p><%= @patient.introduction %></p>
+  </div>
+<% end %>
+
 <ol class="toc">
   <% @patient.stays.each do |stay| %>
 

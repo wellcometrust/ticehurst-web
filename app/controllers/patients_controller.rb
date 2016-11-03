@@ -21,4 +21,27 @@ class PatientsController < ApplicationController
     @stays = @patient.stays.order(:admission)
   end
 
+  def edit
+    @patient = Patient.find(params[:id])
+  end
+
+  def update
+    @patient = Patient.find(params[:id])
+
+    introduction = params[:patient][:introduction]
+
+    if introduction
+
+      if !introduction.blank?
+        @patient.introduction = introduction
+      else
+        @patient.introduction = nil
+      end
+    end
+
+    @patient.save!
+    redirect_to patient_path(@patient)
+
+  end
+
 end

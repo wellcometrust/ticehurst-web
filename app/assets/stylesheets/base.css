@@ -79,3 +79,8 @@ input.page-number {
 table.pages {
   width: 100%;
 }
+
+.introduction {
+  font-size: 1.4em;
+  line-height: 1.4em;
+}
