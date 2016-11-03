@@ -5,7 +5,7 @@
 
 <% if @patient.introduction %>
   <div class="introduction">
-    <p><%= @patient.introduction %></p>
+    <p><%= @patient.introduction.html_safe %></p>
   </div>
 <% end %>
 
