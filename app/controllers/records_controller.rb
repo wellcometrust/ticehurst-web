@@ -10,6 +10,7 @@ class RecordsController < ApplicationController
 
   def show
     @record = Record.find(params[:id])
+    @images = @record.images.order(:sequence)
   end
 
   def pages

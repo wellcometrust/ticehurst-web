@@ -2,3 +2,33 @@
 
 
 <p><%= link_to "Transcribe pages", record_pages_path(@record) %>       (<%= number_to_percentage(@record.pages_with_type.to_f * 100 / @record.images.count, precision: 1) %> done)</p>
+
+
+<% previous_image_type = nil %>
+<% previous_page_ref = nil %>
+<% current_page_ref = nil %>
+
+
+<h2>Contents </h2>
+<ol class="toc">
+  <% @images.each do |image| %>
+
+    <% if image.page_type != previous_image_type %>
+
+      <% if previous_image_type != nil %>
+        <li>
+          <%= previous_image_type %>
+          <% if current_page_ref.present? || previous_page_ref.present? %>
+            (<%= current_page_ref.upcase %> –  <%= previous_page_ref.upcase %>)
+          <% end %>
+        </li>
+
+      <% end %>
+
+      <% current_page_ref = image.left_page || image.right_page || "" %>
+    <% end %>
+
+    <% previous_image_type = image.page_type %>
+    <% previous_page_ref = image.right_page || image.left_page || "" %>
+  <% end %>
+</ol>
