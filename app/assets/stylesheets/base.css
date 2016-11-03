@@ -81,9 +81,12 @@ table.pages {
 }
 
 .introduction {
-  font-size: 1.4em;
+  font-size: 1.2em;
   line-height: 1.4em;
-}
+  max-width: 38em;
+/*  margin-left: auto;
+  margin-right: auto;
+*/}
 
 .table-search {
   margin-bottom: 1em;
