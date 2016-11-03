@@ -6,6 +6,7 @@
 
   <% {left: @image.left_page.upcase, right: @image.right_page.upcase}.each_pair do |position, page_ref| %>
 
+
     <h2><%= page_ref %></h2>
 
     <table class="transcribe-index">
@@ -18,11 +19,23 @@
 
 
       <tbody>
+
+        <% @case_notes.select {|cn| cn.index_side == position.to_s }.each do |case_note| %>
+
+          <tr>
+            <td><%= link_to case_note.patient.name, patient_path(case_note.patient) %></td>
+            <td>
+              <% sequence_start_image = @record.images.find_by(sequence: case_note.sequence_start) %>
+              <%= sequence_start_image.left_page %>
+            </td>
+          </tr>
+        <% end %>
+
         <% 5.times do %>
 
           <tr>
             <td>
-              <select>
+              <select name="index_ref[][patient_id]">
                 <option></option>
                 <% @patients.select {|p| p.name.upcase.start_with?(page_ref) }.each do |patient| %>
                   <option value="<%= patient.id %>"><%= patient.name %></option>
@@ -35,7 +48,8 @@
               </select>
             </td>
             <td>
-              <input type="text">
+              <input name="index_ref[][page_ref]" type="text">
+              <input name="index_ref[][index_side]" type="hidden" value="<%= position %>">
             </td>
           </tr>
         <% end %>
@@ -54,7 +68,8 @@
   </div>
 
   <div class="save-buttons">
-    <button type="submit">Save</button>
+    <button type="submit" name="next" value="next">Save &amp; Next</button>
+    <button type="submit" name="next" value="reload">Save &amp; Reload</button>
   </div>
 
 <% end %>

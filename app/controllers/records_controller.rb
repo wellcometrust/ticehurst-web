@@ -27,6 +27,9 @@ class RecordsController < ApplicationController
   def index_page
     @record = Record.find(params[:record_id])
     @image = @record.images.find(params[:id])
+
+    @case_notes = @record.case_notes.where(index_image: @image)
+
     @patients = Patient.order(:name)
   end
 
@@ -69,12 +72,49 @@ class RecordsController < ApplicationController
     image.transcribed = params[:image][:transcribed]
     image.save!
 
+    params[:index_ref].each do |index_ref|
+
+      if index_ref[:patient_id].present? && index_ref[:page_ref].present? && index_ref[:index_side].present?
+
+        patient = Patient.find(index_ref[:patient_id])
+
+        index_ref[:page_ref].to_s.split(',').each do |page_number|
+
+          start_page_image =
+            record.images.where(left_page: page_number).order(:sequence).first ||
+            record.images.where(left_page: page_number).order(:sequence).first
+
+          if start_page_image
+            case_note = record.case_notes.new
+            case_note.index_image = image
+            case_note.patient = patient
+            case_note.sequence_start = start_page_image.sequence
+            case_note.sequence_end = start_page_image.sequence
+            case_note.transcribed_index_page_ref = page_number
+            case_note.index_side = index_ref[:index_side]
+            case_note.save!
+          end
+
+        end
+
+      end
+
+
+    end
+
+
     next_image = record.images.find_by(sequence: image.sequence + 1)
 
-    if next_image.page_type == 'Index'
-      redirect_to record_index_page_path(record, next_image.id)
+
+    if params[:next].to_s == "reload"
+      redirect_to record_index_page_path(record, image.id)
+
     else
-      redirect_to record_index_path(record)
+      if next_image.page_type == 'Index'
+        redirect_to record_index_page_path(record, next_image.id)
+      else
+        redirect_to record_index_path(record)
+      end
     end
   end
 

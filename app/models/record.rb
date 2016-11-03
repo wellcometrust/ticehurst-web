@@ -4,6 +4,7 @@ require 'json'
 class Record < ApplicationRecord
 
   has_many :images
+  has_many :case_notes
 
 
   def volume=(volume_string)

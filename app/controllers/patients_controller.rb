@@ -22,6 +22,8 @@ class PatientsController < ApplicationController
   def show
     @patient = Patient.find(params[:id])
     @stays = @patient.stays.order(:admission)
+
+    @case_notes = @patient.case_notes
   end
 
   def edit
