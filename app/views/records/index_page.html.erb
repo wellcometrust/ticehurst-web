@@ -1,0 +1,60 @@
+<h1><%= link_to "Volume #{@record.volume}", @record %> / <%= link_to "Index", record_index_path(@record) %> / <%= "#{@image.left_page.upcase} – #{@image.right_page.upcase}" %></h1>
+
+
+
+<%= form_for @image, url: record_index_page_path(@record, @image), method: :put do |form| %>
+
+  <% {left: @image.left_page.upcase, right: @image.right_page.upcase}.each_pair do |position, page_ref| %>
+
+    <h2><%= page_ref %></h2>
+
+    <table class="transcribe-index">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Page ref</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        <% 5.times do %>
+
+          <tr>
+            <td>
+              <select>
+                <option></option>
+                <% @patients.select {|p| p.name.upcase.start_with?(page_ref) }.each do |patient| %>
+                  <option value="<%= patient.id %>"><%= patient.name %></option>
+                <% end %>
+
+                <option>–––––</option>
+                <% @patients.select {|p| !p.name.upcase.start_with?(page_ref) }.each do |patient| %>
+                  <option value="<%= patient.id %>"><%= patient.name %></option>
+                <% end %>
+              </select>
+            </td>
+            <td>
+              <input type="text">
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+    <% x = (position == :left ? 0 : 49) %>
+    <%= image_tag cropped_image_path(@image.id, 2048, 2048, x, 0, 51, 100) %>
+
+  <% end %>
+
+  <div>
+    <label for="done">Page completed?</label>
+    <input type="checkbox" name="done" id="done">
+  </div>
+
+  <div class="save-buttons">
+    <button type="submit">Save</button>
+  </div>
+
+<% end %>

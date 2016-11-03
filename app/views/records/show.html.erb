@@ -1,4 +1,5 @@
-<h1><%= @record.id %></h1>
+<h1>Volume <%= @record.volume %> (<%= @record.id %>)</h1>
+
 
 
 <p><%= link_to "Transcribe pages", record_pages_path(@record) %>       (<%= number_to_percentage(@record.pages_with_type.to_f * 100 / @record.images.count, precision: 1) %> done)</p>
@@ -17,10 +18,18 @@
 
       <% if previous_image_type != nil %>
         <li>
-          <%= previous_image_type %>
+
+          <% page_range = previous_image_type %>
           <% if current_page_ref.present? || previous_page_ref.present? %>
-            (<%= current_page_ref.upcase %> –  <%= previous_page_ref.upcase %>)
+            <% page_range += " (#{current_page_ref.upcase} - #{previous_page_ref.upcase})" %>
           <% end %>
+
+          <% if previous_image_type == 'Index' %>
+            <%= link_to page_range, record_index_path(@record) %>
+          <% else %>
+            <%= page_range %>
+          <% end %>
+
         </li>
 
       <% end %>
