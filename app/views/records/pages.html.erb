@@ -6,7 +6,7 @@
 
 <%= form_tag record_pages_path(@record), method: :put %>
 
-  <table class="pages">
+  <table class="pages js-page-number-autofill">
 
     <thead>
       <tr>
@@ -26,7 +26,7 @@
 
         <tr class="js-page-type-preselect">
           <td>
-            <a href="<%= image_path(image.id, 2024, 2024) %>" target="_blank">
+            <a href="<%= image_path(image.id, 2024, 2024) %>" target="_blank" tabindex="-1">
               <%= image_tag image_path(image.id, 400, 400) %>
             </a>
           </td>
@@ -37,11 +37,11 @@
           </td>
 
           <td>
-            <input type="text" class="page-number js-page-number" name="page[<%= image.sequence %>][left]" value="<%= image.left_page %>" />
+            <input type="text" class="page-number js-page-number" name="page[<%= image.sequence %>][left]" value="<%= image.left_page %>" id="page-input-<%= image.sequence * 2 - 1 %>"/>
           </td>
 
           <td>
-            <input type="text" class="page-number js-page-number" name="page[<%= image.sequence %>][right]" value="<%= image.right_page %>" />
+            <input type="text" class="page-number js-page-number" name="page[<%= image.sequence %>][right]" value="<%= image.right_page %>"  id="page-input-<%= image.sequence * 2 %>"/>
           </td>
 
           <td>
