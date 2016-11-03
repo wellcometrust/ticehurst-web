@@ -49,8 +49,8 @@
   <% end %>
 
   <div>
-    <label for="done">Page completed?</label>
-    <input type="checkbox" name="done" id="done">
+    <%= form.label :transcribed, "Page completed?" %>
+    <%= form.check_box :transcribed %>
   </div>
 
   <div class="save-buttons">

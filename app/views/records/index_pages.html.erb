@@ -1,12 +1,14 @@
 <h1>Index for <%= link_to "Volume #{@record.volume}", record_path(@record) %></h1>
 
 
+<p>Status: <%= number_to_percentage(@transcribed_images.to_f / @images.length * 100, precision: 1) %> transcribed.</p>
+
 <ol class="toc">
 
   <% @images.each do |image| %>
 
     <li>
-      <%= link_to "#{image.left_page.upcase} – #{image.right_page.upcase}", record_index_page_path(@record, image) %>
+      <%= link_to "#{image.left_page.upcase} – #{image.right_page.upcase}", record_index_page_path(@record, image) %> <%= 'DONE' if image.transcribed %>
     </li>
   <% end %>
 

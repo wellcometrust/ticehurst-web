@@ -21,6 +21,7 @@ class RecordsController < ApplicationController
   def index_pages
     @record = Record.find(params[:record_id])
     @images = @record.images.where(page_type: 'Index').order(:sequence)
+    @transcribed_images = @images.select(&:transcribed).length
   end
 
   def index_page
@@ -64,6 +65,9 @@ class RecordsController < ApplicationController
   def update_index_page
     record = Record.find(params[:record_id])
     image = record.images.find(params[:id])
+
+    image.transcribed = params[:image][:transcribed]
+    image.save!
 
     next_image = record.images.find_by(sequence: image.sequence + 1)
 
