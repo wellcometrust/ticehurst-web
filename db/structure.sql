@@ -125,10 +125,13 @@ ALTER SEQUENCE bill_notes_id_seq OWNED BY bill_notes.id;
 
 CREATE TABLE case_notes (
     id integer NOT NULL,
-    stay_id integer NOT NULL,
+    stay_id integer,
     record_id character varying NOT NULL,
     sequence_start integer NOT NULL,
-    sequence_end integer NOT NULL
+    sequence_end integer NOT NULL,
+    index_image_id text,
+    index_side text,
+    patient_id integer
 );
 
 
@@ -444,6 +447,14 @@ ALTER TABLE ONLY bill_notes
 
 
 --
+-- Name: fk_rails_33b44c779c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY case_notes
+    ADD CONSTRAINT fk_rails_33b44c779c FOREIGN KEY (index_image_id) REFERENCES images(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: fk_rails_3abaeda4e7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -484,6 +495,14 @@ ALTER TABLE ONLY images
 
 
 --
+-- Name: fk_rails_b6d16f20e3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY case_notes
+    ADD CONSTRAINT fk_rails_b6d16f20e3 FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: fk_rails_bbef2204d0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -513,6 +532,6 @@ ALTER TABLE ONLY discharge_notes
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114'), ('20161102114241'), ('20161102140601'), ('20161102140716'), ('20161102140856'), ('20161103100625'), ('20161103142044');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114'), ('20161102114241'), ('20161102140601'), ('20161102140716'), ('20161102140856'), ('20161103100625'), ('20161103142044'), ('20161103145706');
 
 
