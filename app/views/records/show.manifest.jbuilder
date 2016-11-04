@@ -8,6 +8,7 @@ json.sequences [0] do
 
   json.viewingHint "paged"
   json.set! "@id", "https://wellcome-ticehurst.herokuapp.com/iiif/#{@record.id}/sequence/s0"
+  json.set! "@type", "sc:Sequence",
 
 
   json.canvases @images do |image|
