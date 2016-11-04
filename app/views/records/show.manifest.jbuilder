@@ -6,7 +6,7 @@ json.set! "@context", "http://iiif.io/api/presentation/2/context.json"
 
 json.sequences [0] do
 
-  json.viewingHint "paged"
+  json.viewingHint "facing-pages"
   json.set! "@id", "https://wellcome-ticehurst.herokuapp.com/iiif/#{@record.id}/sequence/s0"
   json.set! "@type", "sc:Sequence"
   json.label "Main sequence"
