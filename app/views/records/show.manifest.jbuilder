@@ -6,12 +6,16 @@ json.set! "@context", "http://iiif.io/api/presentation/2/context.json"
 
 json.sequences [0] do
 
+  json.viewingHint "paged"
+
 
   json.canvases @images do |image|
 
     json.set! "@id", "http://wellcomelibrary.org/iiif/#{@record.id}/canvas/c#{image.sequence}"
     json.set! "@type", "sc:Canvas"
     json.label image.label
+    json.height image.height
+    json.width image.width
 
     json.images [0] do
 
