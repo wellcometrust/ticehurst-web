@@ -33,12 +33,29 @@
 
       <td>
 
+        <svg viewbox="0 0 500 20" width="500" height="20">
+
+          <% start_year = 1792 %>
+          <% end_year = 1989 %>
+          <% width_scale = 500 / (end_year - start_year) %>
+
+
+          <% dates = group[1].each do |stay| %>
+            <% if stay.admission && stay.discharge %>
+
+              <rect x="<%= (stay.admission.year - start_year) * width_scale %>" y="0" width="<%= ((stay.discharge.year - stay.admission.year) + 1) * width_scale  %>" height="20" fill="red" />
+
+            <% end %>
+          <% end %>
+
+        </svg>
+
 
         <% dates = group[1].collect do |stay| %>
-          <% stay_date(stay.admission, stay.transcribed_date_of_admission).to_s + " – " + stay_date(stay.discharge, stay.transcribed_date_of_discharge).to_s %>
+          <%# stay_date(stay.admission, stay.transcribed_date_of_admission).to_s + " – " + stay_date(stay.discharge, stay.transcribed_date_of_discharge).to_s %>
         <% end %>
 
-        <%= dates.join(', ') %>
+        <%#= dates.join(', ') %>
       </td>
 
 
