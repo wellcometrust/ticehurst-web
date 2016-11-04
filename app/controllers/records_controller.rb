@@ -82,7 +82,7 @@ class RecordsController < ApplicationController
 
           start_page_image =
             record.images.where(left_page: page_number).order(:sequence).first ||
-            record.images.where(left_page: page_number).order(:sequence).first
+            record.images.where(right_page: page_number).order(:sequence).first
 
           case_note = record.case_notes.new
           case_note.index_image = image
