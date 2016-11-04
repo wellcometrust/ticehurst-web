@@ -7,6 +7,7 @@ json.set! "@context", "http://iiif.io/api/presentation/2/context.json"
 json.sequences [0] do
 
   json.viewingHint "paged"
+  json.set! "@id", "https://wellcome-ticehurst.herokuapp.com/iiif/#{@record.id}/sequence/s0"
 
 
   json.canvases @images do |image|
@@ -20,6 +21,7 @@ json.sequences [0] do
     json.images [0] do
 
       json.set! "@type", "oa:Annotation"
+      json.on "http://wellcomelibrary.org/iiif/#{@record.id}/canvas/c#{image.sequence}"
 
       json.resource do
 
