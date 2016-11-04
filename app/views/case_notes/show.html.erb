@@ -16,5 +16,5 @@
 
 <% if @case_note.sequence_start %>
   <% image = @case_note.record.images.find_by(sequence: @case_note.sequence_start) %>
-  <%= image_tag image_path(image, 1024, 1024) %>
+  <%= image_tag image_path(image.id, 1024, 1024) %>
 <% end %>
