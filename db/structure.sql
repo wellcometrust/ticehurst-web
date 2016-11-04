@@ -127,8 +127,8 @@ CREATE TABLE case_notes (
     id integer NOT NULL,
     stay_id integer,
     record_id character varying NOT NULL,
-    sequence_start integer NOT NULL,
-    sequence_end integer NOT NULL,
+    sequence_start integer,
+    sequence_end integer,
     index_image_id text,
     index_side text,
     patient_id integer,
@@ -533,6 +533,6 @@ ALTER TABLE ONLY discharge_notes
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114'), ('20161102114241'), ('20161102140601'), ('20161102140716'), ('20161102140856'), ('20161103100625'), ('20161103142044'), ('20161103145706'), ('20161103162935');
+INSERT INTO schema_migrations (version) VALUES ('20161031154615'), ('20161031154850'), ('20161101104705'), ('20161101105837'), ('20161101112155'), ('20161101114718'), ('20161101132937'), ('20161101135812'), ('20161101140633'), ('20161102091114'), ('20161102114241'), ('20161102140601'), ('20161102140716'), ('20161102140856'), ('20161103100625'), ('20161103142044'), ('20161103145706'), ('20161103162935'), ('20161104100810');
 
 
