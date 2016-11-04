@@ -48,7 +48,17 @@
           <% dates = group[1].each do |stay| %>
             <% if stay.admission && stay.discharge %>
 
-              <rect x="<%= (stay.admission.year - start_year) * width_scale %>" y="0" width="<%= ((stay.discharge.year - stay.admission.year) + 1) * width_scale  %>" height="20" fill="red" />
+              <% fill = 'grey' %>
+              <% case stay.transcribed_subsequent_condition.to_s.downcase
+              when 'died'
+                fill = 'black'
+              when 'recovered', 'improved', 'cured'
+                fill = 'green'
+              when 'not imp.'
+                fill = 'red'
+              end
+              %>
+              <rect x="<%= (stay.admission.year - start_year) * width_scale %>" y="0" width="<%= ((stay.discharge.year - stay.admission.year) + 1) * width_scale  %>" height="20" fill="<%= fill %>" />
 
             <% end %>
           <% end %>
