@@ -1,10 +1,10 @@
-<h1><%= link_to "Volume #{@record.volume}", @record %> / <%= link_to "Index", record_index_path(@record) %> / <%= "#{@image.left_page.upcase} – #{@image.right_page.upcase}" %></h1>
+<h1><%= link_to "Volume #{@record.volume}", @record %> / <%= link_to "Index", record_index_path(@record) %> / <%= "#{@image.left_page.to_s.upcase} – #{@image.right_page.to_s.upcase}" %></h1>
 
 
 
 <%= form_for @image, url: record_index_page_path(@record, @image), method: :put do |form| %>
 
-  <% {left: @image.left_page.upcase, right: @image.right_page.upcase}.each_pair do |position, page_ref| %>
+  <% {left: @image.left_page.to_s.upcase, right: @image.right_page.to_s.upcase}.each_pair do |position, page_ref| %>
 
 
     <h2><%= page_ref %></h2>
@@ -44,12 +44,25 @@
               <select name="index_ref[][patient_id]">
                 <option></option>
                 <% @patients.select {|p| p.name.upcase.start_with?(page_ref) }.each do |patient| %>
-                  <option value="<%= patient.id %>"><%= patient.name %></option>
+                  <option value="<%= patient.id %>">
+                    <%= patient.name %>
+
+                    <% if patient.years_string %>
+                      (<%= patient.years_string %>)
+                    <% end %>
+
+                  </option>
                 <% end %>
 
                 <option>–––––</option>
                 <% @patients.select {|p| !p.name.upcase.start_with?(page_ref) }.each do |patient| %>
-                  <option value="<%= patient.id %>"><%= patient.name %></option>
+                  <option value="<%= patient.id %>"><%= patient.name %>
+
+                    <% if patient.years_string %>
+                      (<%= patient.years_string %>)
+                    <% end %>
+
+                  </option>
                 <% end %>
               </select>
             </td>
