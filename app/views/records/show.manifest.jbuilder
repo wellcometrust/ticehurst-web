@@ -35,6 +35,8 @@ json.sequences [0] do
       json.set! "@type", "oa:Annotation"
       json.on "http://wellcomelibrary.org/iiif/#{@record.id}/canvas/c#{image.sequence}"
 
+      json.motivation "sc:painting"
+
       json.resource do
 
         json.set! "@id", "https://dlcs.io/iiif-img/2/1/#{image.id}/full/!1024,1024/0/default.jpg"
