@@ -26,11 +26,9 @@
           <tr>
             <td><%= link_to case_note.patient.name, patient_path(case_note.patient) %></td>
             <td>
-              <% if case_note.sequence_start %>
-                <% sequence_start_image = @record.images.find_by(sequence: case_note.sequence_start) %>
-                <%= sequence_start_image.left_page %>
-              <% else %>
-                <%= case_note.transcribed_index_page_ref %> <span class="warning">Couldn’t find page</span>
+              <%= case_note.transcribed_index_page_ref %>
+              <% if !case_note.sequence_start %>
+                 <span class="warning">Couldn’t find page</span>
               <% end %>
             </td>
             <td>
