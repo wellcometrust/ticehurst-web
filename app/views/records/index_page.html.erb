@@ -14,6 +14,7 @@
         <tr>
           <th>Patient</th>
           <th>Page ref</th>
+          <th></th>
         </tr>
       </thead>
 
@@ -31,6 +32,9 @@
               <% else %>
                 <%= case_note.transcribed_index_page_ref %> <span class="warning">Couldn’t find page</span>
               <% end %>
+            </td>
+            <td>
+              <%= link_to 'Delete', case_note_path(case_note), class: 'delete' %>
             </td>
           </tr>
         <% end %>
@@ -51,7 +55,7 @@
                 <% end %>
               </select>
             </td>
-            <td>
+            <td colspan="2">
               <input name="index_ref[][page_ref]" type="text">
               <input name="index_ref[][index_side]" type="hidden" value="<%= position %>">
             </td>

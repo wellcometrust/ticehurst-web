@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :case_notes, only: [:show, :destroy]
+
   root to: "home#show"
 
 end
