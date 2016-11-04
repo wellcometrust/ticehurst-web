@@ -13,9 +13,14 @@
 <table class="patients">
   <thead>
     <tr>
-      <th class="name">Name</th>
+      <th class="name"><%= link_to "Name", patients_path(order: 'name') %></th>
       <th>Number of stays</th>
-      <th>Stay Dates</th>
+      <th>
+
+        <% order = params[:order].to_s == 'admission' ? 'discharged' : 'admission' %>
+
+        <%= link_to "Stay Dates", patients_path(order: order) %>
+      </th>
     </tr>
   </thead>
 

@@ -9,18 +9,22 @@ class PatientsController < ApplicationController
     stays = Stay.joins(:patient)
       .select('patients.*, stays.*')
 
-    @patients = stays.group_by(&:patient_id)
 
     case params[:order].to_s
     when "admission"
-      @patients = @patients.order('patients.highlighted desc', 'patients.admission')
+      stays = stays.order('patients.highlighted desc', 'patients.first_admitted')
+    when "discharged"
+      stays = stays.order('patients.highlighted desc', 'patients.last_discharged')
     else
-      @patients = @patients.order('patients.highlighted desc', 'patients.name', 'stays.admission')
+      stays = stays.order('patients.highlighted desc', 'patients.name', 'stays.admission')
     end
 
     if @name_search
-      @stays = @stays.where("lower(patients.name) LIKE ?", "%#{@name_search.downcase}%")
+      stays = stays.where("lower(patients.name) LIKE ?", "%#{@name_search.downcase}%")
     end
+
+    @patients = stays.group_by(&:patient_id)
+
 
   end
 
