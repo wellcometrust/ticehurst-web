@@ -6,7 +6,7 @@ class Image < ApplicationRecord
   def label
 
     if left_page || right_page
-      "#{left_page} – right_page"
+      "#{left_page.upcase} – #{right_page.upcase}"
     elsif page_type
       page_type
     else
