@@ -8,14 +8,24 @@ json.sequences [0] do
 
   json.viewingHint "paged"
   json.set! "@id", "https://wellcome-ticehurst.herokuapp.com/iiif/#{@record.id}/sequence/s0"
-  json.set! "@type", "sc:Sequence",
+  json.set! "@type", "sc:Sequence"
 
 
   json.canvases @images do |image|
 
+    label = image.label
+
+    patient_names = @case_notes.select {|c| c.sequence_start == image.sequence }.collect do |case_note|
+      case_note.stay ? case_note.stay.patient.name : case_note.patient.name
+    end
+
+    if patient_names.length > 0
+      label += " – #{patient_names.join(',')}"
+    end
+
     json.set! "@id", "http://wellcomelibrary.org/iiif/#{@record.id}/canvas/c#{image.sequence}"
     json.set! "@type", "sc:Canvas"
-    json.label image.label
+    json.label label
     json.height image.height
     json.width image.width
 
