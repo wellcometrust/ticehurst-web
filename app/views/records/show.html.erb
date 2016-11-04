@@ -5,9 +5,12 @@
 <p><%= link_to "Transcribe pages", record_pages_path(@record) %>       (<%= number_to_percentage(@record.pages_with_type.to_f * 100 / @record.images.count, precision: 1) %> done)</p>
 
 
+
+<% current_sequence_start_image = @images[0] %>
 <% previous_image_type = nil %>
 <% previous_page_ref = nil %>
 <% current_page_ref = nil %>
+<% previous_image = nil %>
 
 
 <h2>Contents </h2>
@@ -30,14 +33,36 @@
             <%= page_range %>
           <% end %>
 
+          <% if previous_image_type == 'Index' || previous_image_type == 'Content' %>
+            <ol>
+              <% current_sequence_start_image.sequence.upto(previous_image.sequence) do |sequence| %>
+
+                <% sub_image = @images.detect {|i| i.sequence == sequence} %>
+
+                <li>
+                  <%= "#{sub_image.left_page.to_s.upcase} - #{sub_image.right_page.to_s.upcase}" %>
+
+                  <%= @case_notes.select {|c| c.sequence_start == sub_image.sequence }.collect do |case_note| %>
+
+                      <% case_note.stay ? case_note.stay.patient.name : case_note.patient.name %>
+                  <% end.join(', ') %>
+
+                </li>
+              <% end %>
+            </ol>
+          <% end %>
+
         </li>
 
       <% end %>
+
+      <% current_sequence_start_image = image %>
 
       <% current_page_ref = image.left_page || image.right_page || "" %>
     <% end %>
 
     <% previous_image_type = image.page_type %>
+    <% previous_image = image %>
     <% previous_page_ref = image.right_page || image.left_page || "" %>
   <% end %>
 </ol>
