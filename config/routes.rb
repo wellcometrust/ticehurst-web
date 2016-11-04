@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :patients, only: [:show, :index, :edit, :update]
 
+  resources :case_books, only: [:index]
+
   resources :records, only: [:show, :index] do
 
     resource :pages, only: [:show], controller: :records, action: :pages

@@ -10,6 +10,13 @@
 
   <body>
 
+    <% unless current_page?(root_path) %>
+      <nav>
+        <%= link_to "Patients", patients_path %>
+        <%= link_to "Case Books", case_books_path %>
+      </nav>
+    <% end %>
+
     <div class="page">
       <%= yield %>
     <div>

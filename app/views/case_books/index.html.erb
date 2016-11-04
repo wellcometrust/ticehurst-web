@@ -1,0 +1,15 @@
+<h1>Case Books</h1>
+
+<p>Introduction about the case books?</p>
+
+
+<ol class="case-books">
+  <% @case_books.each do |case_book| %>
+    <li>
+      <%= link_to record_path(case_book) do %>
+        <% image = case_book.images.order(:sequence).last %>
+        <%= image_tag cropped_image_path(image.id, 300, 200, 30, 2, 50, 96) %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
