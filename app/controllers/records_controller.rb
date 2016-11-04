@@ -84,16 +84,19 @@ class RecordsController < ApplicationController
             record.images.where(left_page: page_number).order(:sequence).first ||
             record.images.where(left_page: page_number).order(:sequence).first
 
+          case_note = record.case_notes.new
+          case_note.index_image = image
+          case_note.patient = patient
+
+
           if start_page_image
-            case_note = record.case_notes.new
-            case_note.index_image = image
-            case_note.patient = patient
             case_note.sequence_start = start_page_image.sequence
             case_note.sequence_end = start_page_image.sequence
-            case_note.transcribed_index_page_ref = page_number
-            case_note.index_side = index_ref[:index_side]
-            case_note.save!
           end
+
+          case_note.transcribed_index_page_ref = page_number
+          case_note.index_side = index_ref[:index_side]
+          case_note.save!
 
         end
 
