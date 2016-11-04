@@ -14,12 +14,6 @@ previous_image = nil
 
 structures = []
 
-# @images.each do |image|
-
-
-# end
-
-
 json.sequences [0] do
 
   json.viewingHint "facing-pages"
@@ -106,6 +100,7 @@ end
 json.structures structures do |structure|
 
   json.label structure[:label]
+  json.set! '@type', 'sc:Range'
 
   json.canvases structure[:canvases]
 
