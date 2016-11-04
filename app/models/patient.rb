@@ -11,6 +11,28 @@ class Patient < ApplicationRecord
 
   end
 
+  def update_length_of_stays!
+
+    length = 0
+
+    stays.each do |stay|
+
+      if stay.admission && stay.discharge
+        length += (stay.discharge - stay.admission) + 1
+      end
+
+    end
+
+    if length > 0
+
+      self.length_of_stays = length
+      self.save!
+    end
+
+
+
+  end
+
   def years_string
 
     start_year = first_admitted.try(:year)

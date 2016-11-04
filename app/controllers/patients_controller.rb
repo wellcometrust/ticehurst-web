@@ -15,6 +15,9 @@ class PatientsController < ApplicationController
       stays = stays.order('patients.highlighted desc', 'patients.first_admitted')
     when "discharged"
       stays = stays.order('patients.highlighted desc', 'patients.last_discharged')
+    when "length_of_stays"
+      stays = stays.order('patients.highlighted desc', '(patients.length_of_stays is null)', 'patients.length_of_stays desc')
+
     else
       stays = stays.order('patients.highlighted desc', 'patients.name', 'stays.admission')
     end

@@ -14,7 +14,7 @@
   <thead>
     <tr>
       <th class="name"><%= link_to "Name", patients_path(order: 'name') %></th>
-      <th>Number of stays</th>
+      <th><%= link_to "Length of stay", patients_path(order: 'length_of_stays') %></th>
       <th>
 
         <% order = params[:order].to_s == 'admission' ? 'discharged' : 'admission' %>
@@ -33,7 +33,24 @@
         <%= link_to patient.name, patient_path(patient.patient_id) %>
       </td>
       <td>
-        <%= patient.stays_count %>
+
+        <% if patient.length_of_stays %>
+
+          <% if patient.length_of_stays > 365.25 %>
+
+
+            <% years = (patient.length_of_stays.to_f / 365.25).floor %>
+            <%= pluralize(years, 'year') %>
+
+          <% else %>
+
+            <%= pluralize(patient.length_of_stays, 'day') %>
+
+          <% end %>
+
+        <% else %>
+          <%= pluralize(patient.stays_count, 'stay') %>
+        <% end %>
       </td>
 
       <td>
