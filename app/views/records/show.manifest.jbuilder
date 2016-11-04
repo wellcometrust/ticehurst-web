@@ -1,6 +1,7 @@
 json.label "Ticehurst Case Book Volume #{@record.volume}"
 
 json.set! "@id", "https://wellcome-ticehurst.herokuapp.com/iiif/#{@record.id}/manifest"
+json.set! "@type", "sc:Manifest"
 
 json.sequences [0] do
 
