@@ -23,5 +23,7 @@ module WellcomeTicehurst
     secrets.secret_key_base = ENV.fetch('SECRET_KEY_BASE')
 
     config.active_record.schema_format = :sql
+
+    Mime::Type.register "application/json", :manifest
   end
 end
