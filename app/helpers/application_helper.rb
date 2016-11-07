@@ -14,7 +14,7 @@ module ApplicationHelper
 
     if record_id == "b19095879"
       cropped_image_path(image_id, 300, 200, 45, 2, 20, 96)
-    elsif record_id == "b18877047" || record_id == "b18904099"
+    elsif record_id == "b18877047" || record_id == "b18904099" || record_id == "b18845794" || record_id == "b18401995"
       cropped_image_path(image_id, 300, 200, 0, 2, 100, 96)
     else
       cropped_image_path(image_id, 300, 200, 30, 2, 50, 96)
