@@ -18,7 +18,14 @@ table {
 td, th {
   border: 1px solid #EEE;
   padding: 4px;
+}
+
+td {
   vertical-align: top;
+}
+
+th {
+  vertical-align: middle;
 }
 
 img {
@@ -69,8 +76,12 @@ tr.highlighted {
   list-style-type: none;
 }
 
+table.patients {
+  width: 100%;
+}
+
 .patients .name {
-  min-width: 300px;
+  max-width: 300px;
 }
 
 input.page-number {
